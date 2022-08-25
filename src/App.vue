@@ -12,6 +12,8 @@
           :key="index"
           :tarefa="tarefa"
         />
+
+        <Box v-if="isListaTarefaVazia"> Nenhuma tarefa realizada hoje :( </Box>
       </div>
     </div>
   </main>
@@ -22,12 +24,18 @@ import { defineComponent } from "vue";
 import BarraLateral from "./components/BarraLateral.vue";
 import Formulario from "./components/Formulario.vue";
 import Tarefa from "./components/Tarefa.vue";
+import Box from "./components/Box.vue";
 
 import { ITarefa } from "./interfaces/ITarefa";
 
 export default defineComponent({
   name: "App",
-  components: { BarraLateral, Formulario, Tarefa },
+  components: { BarraLateral, Formulario, Tarefa, Box },
+  computed: {
+    isListaTarefaVazia(): boolean {
+      return this.tarefas.length === 0;
+    },
+  },
   data: () => {
     return {
       tarefas: [] as Array<ITarefa>,
