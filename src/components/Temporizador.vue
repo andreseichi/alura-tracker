@@ -34,6 +34,7 @@ export default defineComponent({
       isCronometroRodando: false,
     };
   },
+  emits: ["aoTemporizadorFinalizado"],
   methods: {
     iniciar() {
       this.isCronometroRodando = true;
@@ -44,6 +45,8 @@ export default defineComponent({
     finalizar() {
       this.isCronometroRodando = false;
       clearInterval(this.cronometroId);
+      this.$emit("aoTemporizadorFinalizado", this.tempoEmSegundos);
+      this.tempoEmSegundos = 0;
     },
   },
 });
