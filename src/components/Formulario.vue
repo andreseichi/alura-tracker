@@ -34,10 +34,14 @@ export default defineComponent({
       descricao: "",
     };
   },
+  emits: ["aoSalvarTarefa"],
   methods: {
     finalizarTarefa(tempoDecorrido: number): void {
-      console.log("tempo da tarefa: ", tempoDecorrido);
-      console.log("descricao da tarefa: ", this.descricao);
+      const tarefa = {
+        duracao: tempoDecorrido,
+        descricao: this.descricao,
+      };
+      this.$emit("aoSalvarTarefa", tarefa);
       this.descricao = "";
     },
   },
