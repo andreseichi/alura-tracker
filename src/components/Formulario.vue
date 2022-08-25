@@ -18,9 +18,7 @@
         <div
           class="is-flex is-align-items-center is-justify-content-space-between"
         >
-          <section>
-            <strong>{{ tempoDecorrido }}</strong>
-          </section>
+          <Cronometro :tempoEmSegundos="tempoEmSegundos" />
 
           <button class="button" @click="iniciar">
             <span class="icon">
@@ -43,21 +41,16 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Cronometro from "./Cronometro.vue";
 
 export default defineComponent({
   name: "FormularioComponent",
-  data() {
+  components: { Cronometro },
+  data: () => {
     return {
       tempoEmSegundos: 0,
       cronometroId: 0,
     };
-  },
-  computed: {
-    tempoDecorrido() {
-      return new Date(this.tempoEmSegundos * 1000)
-        .toISOString()
-        .substring(11, 19);
-    },
   },
   methods: {
     iniciar() {
