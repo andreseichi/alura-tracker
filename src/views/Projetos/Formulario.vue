@@ -31,10 +31,31 @@ export default defineComponent({
   },
   methods: {
     salvarProjeto() {
-      this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+      if (this.id) {
+        const projeto = {
+          id: this.id,
+          nome: this.nomeDoProjeto,
+        };
+        this.store.commit('ALTERA_PROJETO', projeto);
+      } else {
+        this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+      }
 
       this.nomeDoProjeto = '';
       this.$router.push('/projetos');
+    },
+  },
+  mounted() {
+    if (this.id) {
+      const projeto = this.store.state.projetos.find(
+        (projeto) => projeto.id === this.id
+      );
+      this.nomeDoProjeto = projeto?.nome || '';
+    }
+  },
+  props: {
+    id: {
+      type: String,
     },
   },
   setup() {
