@@ -1,6 +1,5 @@
 <template>
-  <section class="projetos">
-    <h1 class="title">Projetos</h1>
+  <section>
     <form @submit.prevent="salvarProjeto">
       <div class="field">
         <label for="nomeDoProjeto" class="label">Nome do Projeto</label>
@@ -19,14 +18,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { useStore } from '../../store/index';
+import { ADICIONA_PROJETO, ALTERA_PROJETO } from "@/store/tipo-mutacoes";
+import { defineComponent } from "vue";
+import { useStore } from "../../store/index";
 
 export default defineComponent({
-  name: 'FormularioProjeto',
+  name: "FormularioProjeto",
   data: () => {
     return {
-      nomeDoProjeto: '',
+      nomeDoProjeto: "",
     };
   },
   methods: {
@@ -36,13 +36,13 @@ export default defineComponent({
           id: this.id,
           nome: this.nomeDoProjeto,
         };
-        this.store.commit('ALTERA_PROJETO', projeto);
+        this.store.commit(ALTERA_PROJETO, projeto);
       } else {
-        this.store.commit('ADICIONA_PROJETO', this.nomeDoProjeto);
+        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
       }
 
-      this.nomeDoProjeto = '';
-      this.$router.push('/projetos');
+      this.nomeDoProjeto = "";
+      this.$router.push("/projetos");
     },
   },
   mounted() {
@@ -50,7 +50,7 @@ export default defineComponent({
       const projeto = this.store.state.projetos.find(
         (projeto) => projeto.id === this.id
       );
-      this.nomeDoProjeto = projeto?.nome || '';
+      this.nomeDoProjeto = projeto?.nome || "";
     }
   },
   props: {
@@ -67,9 +67,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style scoped>
-.projetos {
-  padding: 1.25rem;
-}
-</style>
