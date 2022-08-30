@@ -8,15 +8,15 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import Formulario from "../components/Formulario.vue";
-import Tarefa from "../components/Tarefa.vue";
-import Box from "../components/Box.vue";
+import { defineComponent } from 'vue';
+import Formulario from '../components/Formulario.vue';
+import Tarefa from '../components/Tarefa.vue';
+import Box from '../components/Box.vue';
 
-import { ITarefa } from "../interfaces/ITarefa";
+import { ITarefa } from '../interfaces/ITarefa';
 
 export default defineComponent({
-  name: "TarefasView",
+  name: 'TarefasView',
   components: { Formulario, Tarefa, Box },
   computed: {
     isListaTarefaVazia(): boolean {
@@ -30,6 +30,7 @@ export default defineComponent({
   },
   methods: {
     salvarTarefa(tarefa: ITarefa) {
+      console.log(tarefa);
       this.tarefas.push(tarefa);
     },
   },

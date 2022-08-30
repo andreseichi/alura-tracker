@@ -58,6 +58,7 @@ export default defineComponent({
       const tarefa = {
         duracao: tempoDecorrido,
         descricao: this.descricao,
+        projeto: this.projetos.find((proj) => proj.id === this.idProjeto),
       };
       this.$emit('aoSalvarTarefa', tarefa);
       this.descricao = '';
