@@ -10,7 +10,12 @@ import {
   NOTIFICAR,
 } from './tipo-mutacoes';
 import { INotificacao } from '@/interfaces/INotificacao';
-import { OBTER_PROJETOS } from './tipo-acoes';
+import {
+  ALTERAR_PROJETO,
+  CADASTRAR_PROJETO,
+  OBTER_PROJETOS,
+  REMOVER_PROJETO,
+} from './tipo-acoes';
 import { api } from '@/http';
 
 interface Estado {
@@ -24,6 +29,22 @@ export const store = createStore<Estado>({
   actions: {
     [OBTER_PROJETOS]({ commit }) {
       api.get('projetos').then(({ data }) => commit(DEFINIR_PROJETOS, data));
+    },
+    [CADASTRAR_PROJETO](store, nomeDoProjeto: string) {
+      const projeto = {
+        id: new Date().toISOString(),
+        nome: nomeDoProjeto,
+      } as IProjeto;
+
+      return api.post('projetos', projeto);
+    },
+    [ALTERAR_PROJETO](store, projeto: IProjeto) {
+      return api.put(`projetos/${projeto.id}`, projeto);
+    },
+    [REMOVER_PROJETO]({ commit }, id: string) {
+      return api
+        .delete(`projetos/${id}`)
+        .then(() => commit(EXCLUIR_PROJETO, id));
     },
   },
   state: {

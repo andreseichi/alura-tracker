@@ -42,16 +42,15 @@
 </template>
 
 <script lang="ts">
-import { OBTER_PROJETOS } from '@/store/tipo-acoes';
-import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
-import { defineComponent } from 'vue';
+import { OBTER_PROJETOS, REMOVER_PROJETO } from '@/store/tipo-acoes';
+import { computed, defineComponent } from 'vue';
 import { useStore } from '../../store/index';
 
 export default defineComponent({
   name: 'ListaView',
   methods: {
     excluirProjeto(id: string) {
-      this.store.commit(EXCLUIR_PROJETO, id);
+      this.store.dispatch(REMOVER_PROJETO, id);
     },
   },
   setup() {
@@ -60,7 +59,7 @@ export default defineComponent({
 
     return {
       store,
-      projetos: store.state.projetos,
+      projetos: computed(() => store.state.projetos),
     };
   },
 });

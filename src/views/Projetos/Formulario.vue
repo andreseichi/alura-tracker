@@ -18,17 +18,17 @@
 </template>
 
 <script lang="ts">
-import { TipoNotificacao } from "@/interfaces/INotificacao";
-import { ADICIONA_PROJETO, ALTERA_PROJETO } from "@/store/tipo-mutacoes";
-import { defineComponent } from "vue";
-import { useStore } from "../../store/index";
-import { useNotificador } from "@/hooks/notificador";
+import { TipoNotificacao } from '@/interfaces/INotificacao';
+import { defineComponent } from 'vue';
+import { useStore } from '../../store/index';
+import { useNotificador } from '@/hooks/notificador';
+import { CADASTRAR_PROJETO, ALTERAR_PROJETO } from '@/store/tipo-acoes';
 
 export default defineComponent({
-  name: "FormularioProjeto",
+  name: 'FormularioProjeto',
   data: () => {
     return {
-      nomeDoProjeto: "",
+      nomeDoProjeto: '',
     };
   },
   methods: {
@@ -38,19 +38,30 @@ export default defineComponent({
           id: this.id,
           nome: this.nomeDoProjeto,
         };
-        this.store.commit(ALTERA_PROJETO, projeto);
+        this.store.dispatch(ALTERAR_PROJETO, projeto).then(() => {
+          this.nomeDoProjeto = '';
+          this.notificar(
+            TipoNotificacao.SUCESSO,
+            'Editado',
+            'Projeto foi editado com sucesso'
+          );
+          this.$router.push('/projetos');
+        });
       } else {
-        this.store.commit(ADICIONA_PROJETO, this.nomeDoProjeto);
+        this.store
+          .dispatch(CADASTRAR_PROJETO, this.nomeDoProjeto)
+          .then(() => this.lidarComSucesso());
       }
-
-      this.nomeDoProjeto = "";
+    },
+    lidarComSucesso() {
+      this.nomeDoProjeto = '';
       this.notificar(
         TipoNotificacao.SUCESSO,
-        "Excelente",
-        "O projeto foi criado com sucesso"
+        'Excelente',
+        'O projeto foi criado com sucesso'
       );
 
-      this.$router.push("/projetos");
+      this.$router.push('/projetos');
     },
   },
   mounted() {
@@ -58,7 +69,7 @@ export default defineComponent({
       const projeto = this.store.state.projetos.find(
         (projeto) => projeto.id === this.id
       );
-      this.nomeDoProjeto = projeto?.nome || "";
+      this.nomeDoProjeto = projeto?.nome || '';
     }
   },
   props: {
