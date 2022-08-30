@@ -12,5 +12,16 @@
       "id": "2022-08-30T18:53:01.093Z",
       "nome": "asd"
     }
+  ],
+  "tarefas": [
+    {
+      "id": "213",
+      "duracao": 230,
+      "descricao": "descrição legal da tarefa",
+      "projeto": {
+        "id": "2022-08-30T18:51:57.669Z",
+        "nome": "asdads"
+      }
+    }
   ]
 }
