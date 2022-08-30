@@ -42,12 +42,13 @@
 </template>
 
 <script lang="ts">
-import { EXCLUIR_PROJETO } from "@/store/tipo-mutacoes";
-import { defineComponent } from "vue";
-import { useStore } from "../../store/index";
+import { OBTER_PROJETOS } from '@/store/tipo-acoes';
+import { EXCLUIR_PROJETO } from '@/store/tipo-mutacoes';
+import { defineComponent } from 'vue';
+import { useStore } from '../../store/index';
 
 export default defineComponent({
-  name: "ListaView",
+  name: 'ListaView',
   methods: {
     excluirProjeto(id: string) {
       this.store.commit(EXCLUIR_PROJETO, id);
@@ -55,6 +56,7 @@ export default defineComponent({
   },
   setup() {
     const store = useStore();
+    store.dispatch(OBTER_PROJETOS);
 
     return {
       store,
