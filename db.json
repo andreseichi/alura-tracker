@@ -17,7 +17,7 @@
     {
       "id": "213",
       "duracao": 230,
-      "descricao": "descrição legal da tarefa",
+      "descricao": "descrição aqui",
       "projeto": {
         "id": "2022-08-30T18:51:57.669Z",
         "nome": "asdads"
@@ -25,7 +25,7 @@
     },
     {
       "duracao": 1,
-      "descricao": "tas",
+      "descricao": "tashiro",
       "projeto": {
         "id": "2022-08-30T18:48:00.837Z",
         "nome": "tas"

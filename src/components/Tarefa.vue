@@ -1,6 +1,6 @@
 <template>
   <Box>
-    <div class="columns" @click="tarefaClicada">
+    <div class="columns click" @click="tarefaClicada">
       <div class="column is-4">
         {{ tarefa.descricao || 'Tarefa sem descrição' }}
       </div>
@@ -40,3 +40,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.click {
+  cursor: pointer;
+}
+</style>
