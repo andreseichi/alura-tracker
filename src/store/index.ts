@@ -4,6 +4,7 @@ import { IProjeto } from '@/interfaces/IProjeto';
 import { InjectionKey } from 'vue';
 import {
   ADICIONA_PROJETO,
+  ADICIONA_TAREFA,
   ALTERA_PROJETO,
   DEFINIR_PROJETOS,
   DEFINIR_TAREFAS,
@@ -14,6 +15,7 @@ import { INotificacao } from '@/interfaces/INotificacao';
 import {
   ALTERAR_PROJETO,
   CADASTRAR_PROJETO,
+  CADASTRAR_TAREFA,
   OBTER_PROJETOS,
   OBTER_TAREFAS,
   REMOVER_PROJETO,
@@ -53,6 +55,11 @@ export const store = createStore<Estado>({
     [OBTER_TAREFAS]({ commit }) {
       api.get('tarefas').then(({ data }) => commit(DEFINIR_TAREFAS, data));
     },
+    [CADASTRAR_TAREFA]({ commit }, tarefa: ITarefa) {
+      return api
+        .post('tarefas', tarefa)
+        .then(({ data }) => commit(ADICIONA_TAREFA, data));
+    },
   },
   state: {
     projetos: [],
@@ -90,6 +97,9 @@ export const store = createStore<Estado>({
     },
     [DEFINIR_TAREFAS](state, tarefas: ITarefa[]) {
       state.tarefas = tarefas;
+    },
+    [ADICIONA_TAREFA](state, tarefa: ITarefa) {
+      state.tarefas.push(tarefa);
     },
   },
 });
