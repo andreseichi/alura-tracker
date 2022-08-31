@@ -3,7 +3,29 @@
   <div class="lista">
     <Box v-if="isListaTarefaVazia"> Nenhuma tarefa realizada hoje :( </Box>
 
-    <Tarefa v-for="(tarefa, index) in tarefas" :key="index" :tarefa="tarefa" />
+    <Tarefa
+      v-for="(tarefa, index) in tarefas"
+      :key="index"
+      :tarefa="tarefa"
+      @aoTarefaClicada="selecionarTarefa"
+    />
+
+    <div class="modal" :class="{ 'is-active': tarefaSelecionada }">
+      <div class="modal-background"></div>
+      <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Modal title</p>
+          <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+          <!-- Content ... -->
+        </section>
+        <footer class="modal-card-foot">
+          <button class="button is-success">Save changes</button>
+          <button class="button">Cancel</button>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -29,9 +51,17 @@ export default defineComponent({
       return this.tarefas.length === 0;
     },
   },
+  data: () => {
+    return {
+      tarefaSelecionada: null as ITarefa | null,
+    };
+  },
   methods: {
     salvarTarefa(tarefa: ITarefa) {
       this.store.dispatch(CADASTRAR_TAREFA, tarefa);
+    },
+    selecionarTarefa(tarefa: ITarefa) {
+      this.tarefaSelecionada = tarefa;
     },
   },
   setup() {
