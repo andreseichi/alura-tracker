@@ -22,41 +22,32 @@
       @aoTarefaClicada="selecionarTarefa"
     />
 
-    <div
-      class="modal"
-      :class="{ 'is-active': tarefaSelecionada }"
+    <Modal
+      :isShown="tarefaSelecionada != null"
       v-if="tarefaSelecionada"
+      @fecharModal="fecharModal"
     >
-      <div class="modal-background" @click="fecharModal"></div>
-      <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Editar Tarefa</p>
-          <button
-            class="delete"
-            aria-label="close"
-            @click="fecharModal"
-          ></button>
-        </header>
-        <section class="modal-card-body">
-          <label for="descricaoDaTarefa" class="label"
-            >Descrição da tarefa</label
-          >
+      <header class="modal-card-head">
+        <p class="modal-card-title">Editar Tarefa</p>
+        <button class="delete" aria-label="close" @click="fecharModal"></button>
+      </header>
+      <section class="modal-card-body">
+        <label for="descricaoDaTarefa" class="label">Descrição da tarefa</label>
 
-          <input
-            type="text"
-            class="input"
-            v-model="tarefaSelecionada.descricao"
-            id="descricaoDaTarefa"
-          />
-        </section>
-        <footer class="modal-card-foot">
-          <button class="button is-success" @click="editarTarefa">
-            Salvar Alterações
-          </button>
-          <button @click="fecharModal" class="button">Cancelar</button>
-        </footer>
-      </div>
-    </div>
+        <input
+          type="text"
+          class="input"
+          v-model="tarefaSelecionada.descricao"
+          id="descricaoDaTarefa"
+        />
+      </section>
+      <footer class="modal-card-foot">
+        <button class="button is-success" @click="editarTarefa">
+          Salvar Alterações
+        </button>
+        <button @click="fecharModal" class="button">Cancelar</button>
+      </footer>
+    </Modal>
   </div>
 </template>
 
@@ -74,10 +65,11 @@ import {
   OBTER_TAREFAS,
   ALTERAR_TAREFA,
 } from "@/store/tipo-acoes";
+import Modal from "@/components/Modal.vue";
 
 export default defineComponent({
   name: "TarefasView",
-  components: { Formulario, Tarefa, Box },
+  components: { Formulario, Tarefa, Box, Modal },
   computed: {
     isListaTarefaVazia(): boolean {
       return this.tarefas.length === 0;
