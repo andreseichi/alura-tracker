@@ -27,11 +27,11 @@
       v-if="tarefaSelecionada"
       @fecharModal="fecharModal"
     >
-      <header class="modal-card-head">
+      <template v-slot:header>
         <p class="modal-card-title">Editar Tarefa</p>
         <button class="delete" aria-label="close" @click="fecharModal"></button>
-      </header>
-      <section class="modal-card-body">
+      </template>
+      <template v-slot:default>
         <label for="descricaoDaTarefa" class="label">Descrição da tarefa</label>
 
         <input
@@ -40,13 +40,13 @@
           v-model="tarefaSelecionada.descricao"
           id="descricaoDaTarefa"
         />
-      </section>
-      <footer class="modal-card-foot">
+      </template>
+      <template v-slot:footer>
         <button class="button is-success" @click="editarTarefa">
           Salvar Alterações
         </button>
         <button @click="fecharModal" class="button">Cancelar</button>
-      </footer>
+      </template>
     </Modal>
   </div>
 </template>
